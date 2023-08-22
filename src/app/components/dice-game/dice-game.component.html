@@ -10,7 +10,11 @@
   <div *ngIf="isGameStarted()">
     <h2>Opponent's Roll</h2>
     <div class="dice">
-      <!-- Opponent Dice Image Here -->
+      <img
+        *ngFor="let dice of opponentDiceList"
+        src="/assets/die{{ dice }}.png"
+      />
+      <img *ngIf="!opponentDiceList.length" src="/assets/die?.png" />
     </div>
     <div>
       <h2>Result</h2>
@@ -34,7 +38,12 @@
         >
           Hit me!
         </button>
-        <button mat-raised-button color="accent" [disabled]="isGameLost()">
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="opponentRoll()"
+          [disabled]="isGameLost() || playerDiceList.length == 0"
+        >
           Stay!
         </button>
       </div>
